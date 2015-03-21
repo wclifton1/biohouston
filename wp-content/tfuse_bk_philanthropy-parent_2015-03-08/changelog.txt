@@ -1,4 +1,0 @@
-*** Philanthropy Changelog ***
-
- 2014.09.25 - version 1.0
- * First release!
