@@ -1,0 +1,8 @@
+*** Philanthropy Changelog ***
+
+ 2014.10.31 - version 1.0.1
+ * minor changes
+	philanthropy-parent/style.css
+
+ 2014.09.25 - version 1.0
+ * First release!
