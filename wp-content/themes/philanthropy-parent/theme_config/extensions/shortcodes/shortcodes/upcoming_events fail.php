@@ -12,8 +12,6 @@ function tfuse_upcoming_events($atts, $content = null)
     extract(shortcode_atts(array('items' => 3, 'title' => 'Popular Posts', 'link' => '', 'cat' => '' ), $atts));
     $return_html = '';
     $saved_events = get_option(TF_THEME_PREFIX.'_all_array_events_'.$cat, '');
-    // print_r ($cat);
-    // print_r ($saved_events);
     $uniq = rand(1,100);
     $return_html .= '<div id="upcoming_events_load"></div>
 		<input type="hidden" value="'.$cat.'" name="current_event" />';
@@ -55,26 +53,34 @@ function tfuse_upcoming_events($atts, $content = null)
                                 $return_html .= '<div class="col-md-6 col-sm-12 col-xs-12">
                                                     <div class="events">
                                                         <h3 class="section-title">'.$title.'</h3>';
-                                            if(!empty($link))
+                                            if($posts){
                                             $return_html .= ' <a href="'.$link.'" class="view-all" >'.__('View all','tfuse').' <span>+</span></a>';
                                                 $return_html .= '<div class="events-navigation">';
 													if(!empty($final_events))
 													{
                                                     $return_html .= '<ol class="carousel-indicators">';
                                                                      $c = 0;   
-                                                                     foreach($final_events as $event){
+                                                                     foreach($posts as $post):setup_postdata($post){
                                                                          $active = ($c == 0) ? 'active' : "";
                                                                             $return_html .= '
-                                                                            <li data-target="#myCarousel'.$uniq.'" data-slide-to="'.$c.'" class="'.$active.'">
+                                                                            <li data-target="#myCarousel'.$uniq.'" data-slide-to="'.$c.'" class="'.$active.' '.tribe_events_event_classes().'">'
+                                                                            do_action( 'tribe_events_list_widget_before_the_event_title' );
+                                                                            $return_html .= '
                                                                                 <i class="icon-calendar"></i>
                                                                                 <div class="title-date">
                                                                                     <div class="event-date">'.$event['event_date'].'</div>
-                                                                                    <h3 class="section-title">'.get_the_title($event['event_id']).'</h3>
-                                                                                </div>
+                                                                                    <h3 class="section-title"><a href="'.echo tribe_get_event_link();.'" rel="bookmark">'.the_title();.'</a></h3>'
+                                                                            do_action( 'tribe_events_list_widget_after_the_event_title' );
+                                                                            do_action( 'tribe_events_list_widget_before_the_meta' );
+                                                                            $return_html .= '<div class="duration">'.echo tribe_events_event_schedule_details();.'</div>
+                                                                                </div>'
+                                                                            do_action( 'tribe_events_list_widget_after_the_meta' )
+                                                                            $return_html .= '
                                                                             </li>';
                                                                     $c++;    }
                                                     $return_html .= '</ol>';
 													}
+                                            }
                                         $return_html .='</div></div>';
                                     $return_html .= '</div>';
                                     

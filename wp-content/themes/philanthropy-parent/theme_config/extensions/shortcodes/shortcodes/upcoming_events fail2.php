@@ -11,9 +11,12 @@ function tfuse_upcoming_events($atts, $content = null)
 {
     extract(shortcode_atts(array('items' => 3, 'title' => 'Popular Posts', 'link' => '', 'cat' => '' ), $atts));
     $return_html = '';
-    $saved_events = get_option(TF_THEME_PREFIX.'_all_array_events_'.$cat, '');
-    // print_r ($cat);
-    // print_r ($saved_events);
+    //$saved_events = $posts;
+    $saved_events = get_option('sticky_posts');
+    echo '$cat= ';
+    print_r ($cat);
+    echo '$saved_events= ';
+    print_r ($saved_events);
     $uniq = rand(1,100);
     $return_html .= '<div id="upcoming_events_load"></div>
 		<input type="hidden" value="'.$cat.'" name="current_event" />';
