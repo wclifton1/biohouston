@@ -35,3 +35,9 @@ h6 {
 .upcoming-events .event-date {
   color: #1e414e;
   }
+
+.site-logo a span img {
+    width:90%;
+    margin-top: -8px;
+}
+
