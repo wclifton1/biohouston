@@ -13,24 +13,26 @@ function tfuse_upcoming_events($atts, $content = null)
     $return_html = '';
     $saved_events = tribe_get_events($args);
     //$cat=20
-    print_r ($saved_events);
+    //print_r ($saved_events);
     $uniq = rand(1,100);
     $return_html .= '<div id="upcoming_events_load"></div>
 		<input type="hidden" value="'.$cat.'" name="current_event" />';
         $current_date = date("Y-m-d H:i:s");
-        print_r ($current_date);
+//echo '$current_date: '
+//echo $current_date;
         if(!empty($saved_events)){
             $upcoming_events = $final_events = array();
             $count = 0;
             $sorted = $saved_events;
             //$sorted = tfuse_aasort($saved_events, 'EventStartDate');
-            print_r ($sorted);
+            //print_r ($sorted);
             foreach($sorted as $event){
                 if($event->EventStartDate > $current_date){
                     $upcoming_events[$count]['event_id'] = $event->ID;
                     $upcoming_events[$count]['event_date'] = $event->EventStartDate;
                     ++$count;
-                    print_r($event->EventStartDate);
+//echo 'EventStartDate: ';
+//echo $event->EventStartDate;
                 }
             }
 
@@ -67,6 +69,7 @@ function tfuse_upcoming_events($atts, $content = null)
                                                                      $c = 0;   
                                                                      foreach($final_events as $event){
                                                                          $active = ($c == 0) ? 'active' : "";
+                                                                            //TODO: format date
                                                                             $return_html .= '
                                                                             <li data-target="#myCarousel'.$uniq.'" data-slide-to="'.$c.'" class="'.$active.'">
                                                                                 <i class="icon-calendar"></i>
@@ -88,11 +91,15 @@ function tfuse_upcoming_events($atts, $content = null)
               $count =0;  foreach($final_events as $event){
                     $act = ($count == 0) ? 'active' : "";
                     $current_post = tribe_get_events( $event['event_id'] );
+//echo 'current_post: ';
+//print_r($current_post);
+                    
+                    //echo get_the_date($event['event_id'];
                   
                     $return_html .= '<div class="'.$act.' item">
                                         <div class="container">
                                             <div class="wrapp-event-slider-text" data-animate-in="fadeIn" data-animate-out="fadeOut">
-                                                <div class="event-date">'.$event['event_date'].'</div>
+                                                <div class="event-date">'.date_format($event['event_date'],'d M, g:i a').'</div>
                                                 <h3 class="section-title">'.get_the_title($event['event_id']).'</h3>
                                                 <div class="event-content"><p>';
                                         $return_html .= (!empty($current_post->post_excerpt)) ? $current_post->post_excerpt : strip_tags(tfuse_shorten_string(apply_filters('the_content',$current_post->post_content),150));
@@ -233,5 +240,7 @@ $args = array(
 //    ),
 //    'meta_compare' => 'BETWEEN',
 // );
+
+//d M, g:i a
 
 tf_add_shortcode('upcoming_events', 'tfuse_upcoming_events', $args);
