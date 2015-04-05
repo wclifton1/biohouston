@@ -23,7 +23,7 @@ function tfuse_shortcode_latest_entry($atts, $content = null)
                         <header class="entry-header">
                             <div class="entry-meta">
                                 <div class="cat-links">
-                                    <a href="'.get_permalink($post['ID']).'">'.__('Latest blog entry','tfuse').'</a>
+                                    <a href="'.get_permalink($post['ID']).'">'.__('Latest job entry','tfuse').'</a>
                                 </div>
                                 <time class="entry-date"><i class="icon-circle"></i>'.get_the_time( get_option('date_format'), $post['ID'] ).'</time>
                                 <h1 class="entry-title">

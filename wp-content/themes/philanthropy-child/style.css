@@ -1,0 +1,28 @@
+/*
+ Theme Name:   Philanthropy Child
+ Description:  Philanthropy Child Theme for BioHouston
+ Author:       Will Clifton
+ Author URI:   http://enventure.org
+ Template:     philanthropy-parent
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         
+ Text Domain:  philanthropy-child
+*/
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  color: #1e414e;
+  background: #f2f2f2;
+  position: relative;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lato", sans-serif;
+  color: #000000;
+}

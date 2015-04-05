@@ -11,23 +11,26 @@ function tfuse_upcoming_events($atts, $content = null)
 {
     extract(shortcode_atts(array('items' => 3, 'title' => 'Popular Posts', 'link' => '', 'cat' => '' ), $atts));
     $return_html = '';
-    $saved_events = get_option(TF_THEME_PREFIX.'_all_array_events_'.$cat, '');
-    // print_r ($cat);
-    // print_r ($saved_events);
+    $saved_events = tribe_get_events($args);
+    //$cat=20
+    print_r ($saved_events);
     $uniq = rand(1,100);
     $return_html .= '<div id="upcoming_events_load"></div>
 		<input type="hidden" value="'.$cat.'" name="current_event" />';
-        $current_date = date("Y-m-d");
-
+        $current_date = date("Y-m-d H:i:s");
+        print_r ($current_date);
         if(!empty($saved_events)){
             $upcoming_events = $final_events = array();
             $count = 0;
-            $sorted = tfuse_aasort($saved_events, 'event_date');
+            $sorted = $saved_events;
+            //$sorted = tfuse_aasort($saved_events, 'EventStartDate');
+            print_r ($sorted);
             foreach($sorted as $event){
-                if($event['event_date'] > $current_date){
-                    $upcoming_events[$count]['event_id'] = $event['event_id'];
-                    $upcoming_events[$count]['event_date'] = $event['event_date'];
+                if($event->EventStartDate > $current_date){
+                    $upcoming_events[$count]['event_id'] = $event->ID;
+                    $upcoming_events[$count]['event_date'] = $event->EventStartDate;
                     ++$count;
+                    print_r($event->EventStartDate);
                 }
             }
 
@@ -84,7 +87,7 @@ function tfuse_upcoming_events($atts, $content = null)
 				{
               $count =0;  foreach($final_events as $event){
                     $act = ($count == 0) ? 'active' : "";
-                    $current_post = get_post( $event['event_id'] );
+                    $current_post = tribe_get_events( $event['event_id'] );
                   
                     $return_html .= '<div class="'.$act.' item">
                                         <div class="container">
@@ -192,7 +195,7 @@ $atts = array(
             'desc' => __('Select Events Category','tfuse'),
             'id' => 'tf_shc_upcoming_events_cat',
             'value' => '',
-			'options' => tfuse_list_events(),
+			'options' => tribe_get_events(),
             'type' => 'select'
         ),
         array(
@@ -212,4 +215,23 @@ $atts = array(
     )
 );
 
-tf_add_shortcode('upcoming_events', 'tfuse_upcoming_events', $atts);
+$args = array(
+    'posts_per_page'   => 3,
+    'offset'           => 0,
+    'orderby'          => 'EventStartDate',
+    'order'            => 'ASC',
+    'post_type'        => 'tribe_events',
+    'post_status'      => 'publish',
+    'tribe_events_cat' => 'homepage'
+);
+
+// $args = array(
+//    'meta_key' => '_EventStartDate',
+//    'meta_value' => array(
+//       $start_date,
+//       $end_date
+//    ),
+//    'meta_compare' => 'BETWEEN',
+// );
+
+tf_add_shortcode('upcoming_events', 'tfuse_upcoming_events', $args);
