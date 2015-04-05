@@ -29,5 +29,5 @@ h6 {
 
 /* colors.less -> layout.less */
 .upcoming-events{
-    background-color:@body-background;
+    background-color:#f2f2f2;
 }
