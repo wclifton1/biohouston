@@ -30,6 +30,7 @@ function tfuse_upcoming_events($atts, $content = null)
                 if($event->EventStartDate > $current_date){
                     $upcoming_events[$count]['event_id'] = $event->ID;
                     $upcoming_events[$count]['event_date'] = $event->EventStartDate;
+                    $upcoming_events[$count]['event_content'] = $event->post_content;
                     ++$count;
 //echo 'EventStartDate: ';
 //echo $event->EventStartDate;
@@ -43,6 +44,7 @@ function tfuse_upcoming_events($atts, $content = null)
                 {
                     $final_events[$k]['event_id'] = $upcoming_events[$i]['event_id'];
                     $final_events[$k]['event_date'] = $upcoming_events[$i]['event_date'];
+                    $final_events[$k]['event_content'] = $upcoming_events[$i]['event_content'];
                     $k++;
                 }
             }
@@ -74,7 +76,7 @@ function tfuse_upcoming_events($atts, $content = null)
                                                                             <li data-target="#myCarousel'.$uniq.'" data-slide-to="'.$c.'" class="'.$active.'">
                                                                                 <i class="icon-calendar"></i>
                                                                                 <div class="title-date">
-                                                                                    <div class="event-date">'.$event['event_date'].'</div>
+                                                                                    <div class="event-date">'.date('F j, g:i a',strtotime($event['event_date'])).'</div>
                                                                                     <h3 class="section-title">'.get_the_title($event['event_id']).'</h3>
                                                                                 </div>
                                                                             </li>';
@@ -99,11 +101,13 @@ function tfuse_upcoming_events($atts, $content = null)
                     $return_html .= '<div class="'.$act.' item">
                                         <div class="container">
                                             <div class="wrapp-event-slider-text" data-animate-in="fadeIn" data-animate-out="fadeOut">
-                                                <div class="event-date">'.$event['event_date'].'</div>
+                                                <div class="event-date">'.date('F j, g:i a',strtotime($event['event_date'])).'</div>
                                                 <h3 class="section-title">'.get_the_title($event['event_id']).'</h3>
                                                 <div class="event-content"><p>';
-                                        $return_html .= (!empty($current_post->post_excerpt)) ? $current_post->post_excerpt : strip_tags(tfuse_shorten_string(apply_filters('the_content',$current_post->post_content),150));
-                                            $return_html .='</p></div>
+                        echo $event['event_content'];
+                        echo 'test echo';
+                                                $return_html .= tfuse_shorten_string(apply_filters('the_content',$event['event_content']),150);
+                                                $return_html .='</p></div>
                                                 <a href="'.get_permalink($event['event_id']).'" class="btn btn-transparent btn-event"><span>'.__('Event details','tfuse').' <i class="icon-chevron-right align-right-icon"></i></span></a>
                                             </div>
                                         </div>
