@@ -1,1 +1,13 @@
 AddType application/x-httpd-php55 .php
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /biohouston/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /biohouston/index.php [L]
+</IfModule>
+
+# END WordPress
