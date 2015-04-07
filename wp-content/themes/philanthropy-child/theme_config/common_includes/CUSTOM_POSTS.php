@@ -246,35 +246,35 @@ if ( !function_exists('tfuse_create_custom_post_types') ) :
 
             register_post_type( 'press' , $args );
 
-        // // Members
-        //     $labels = array(
-        //             'name' => __('Members', 'tfuse'),
-        //             'singular_name' => __('Member', 'tfuse'),
-        //             'add_new' => __('Add New', 'tfuse'),
-        //             'add_new_item' => __('Add New Member', 'tfuse'),
-        //             'edit_item' => __('Edit Member', 'tfuse'),
-        //             'new_item' => __('New Member', 'tfuse'),
-        //             'all_items' => __('All Members', 'tfuse'),
-        //             'view_item' => __('View Member', 'tfuse'),
-        //             'search_items' => __('Search Members', 'tfuse'),
-        //             'not_found' =>  __('Nothing found', 'tfuse'),
-        //             'not_found_in_trash' => __('Nothing found in Trash', 'tfuse'),
-        //             'parent_item_colon' => ''
-        //     );
+         // Members
+            $labels = array(
+                    'name' => __('Members', 'tfuse'),
+                    'singular_name' => __('Member', 'tfuse'),
+                    'add_new' => __('Add New', 'tfuse'),
+                    'add_new_item' => __('Add New Member', 'tfuse'),
+                    'edit_item' => __('Edit Member', 'tfuse'),
+                    'new_item' => __('New Member', 'tfuse'),
+                    'all_items' => __('All Members', 'tfuse'),
+                    'view_item' => __('View Member', 'tfuse'),
+                    'search_items' => __('Search Members', 'tfuse'),
+                    'not_found' =>  __('Nothing found', 'tfuse'),
+                    'not_found_in_trash' => __('Nothing found in Trash', 'tfuse'),
+                    'parent_item_colon' => ''
+            );
 
-        //     $args = array(
-        //             'labels' => $labels,
-        //             'public' => false,
-        //             'publicly_queryable' => false,
-        //             'show_ui' => true,
-        //             'query_var' => true,
-        //             //'menu_icon' => get_template_directory_uri() . '/images/icons/testimonials.png',
-        //             'rewrite' => true,
-        //             'menu_position' => 5,
-        //             'supports' => array('title','thumbnail')
-        //     ); 
+            $args = array(
+                    'labels' => $labels,
+                    'public' => false,
+                    'publicly_queryable' => false,
+                    'show_ui' => true,
+                    'query_var' => true,
+                    //'menu_icon' => get_template_directory_uri() . '/images/icons/testimonials.png',
+                    'rewrite' => true,
+                    'menu_position' => 5,
+                    'supports' => array('title','thumbnail')
+            ); 
 
-        //     register_post_type( 'member' , $args );
+            register_post_type( 'member' , $args );
         
         // // FAQ
         //     $labels = array(
